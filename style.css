@@ -329,14 +329,14 @@ div.polaroid {
 
 .polaroid.rotate_right {
   position: fixed; /* or absolute */
-  top: 50px; /* Adjust as needed */
+  top: 10px; /* Adjust as needed */
   right: 40px; /* Adjust as needed */
   animation: bounce 2s infinite;
 }
 
 .polaroid.rotate_left {
   position: fixed; /* or absolute */
-  top: 600px; /* Adjust as needed */
+  top: 500px; /* Adjust as needed */
   right: 0px; /* Adjust as needed */
   animation: bounce_left 2s infinite;
 }
