@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOMEH</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div class="polaroid rotate_right">
+    <img src="mome.jpg" alt="mom" width="284" height="213">
+    <p class="caption">                                                        
+      
+    </p>
+    
+  </div>
+  <div class="polaroid rotate_left">
+    <img src="mome2.jpg" alt="mom" width="284" height="213">
+    <p class="caption">                                                        
+      
+    </p>
+    
+  </div>
+  <canvas id="test"></canvas>
+  <div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="content">
+  
+  <div class="container">
+    <div class="valentines">
+      <div class="envelope"></div>
+      <div class="front"></div>
+      <div class="card">
+        <div class="text">Happy</br>Mother's Day</br>Momeh  </div>
+        <div class="heart" </div>
+        </div>
+        <div class="hearts">
+          <div class="one"></div>
+          <div class="two"></div>
+          <div class="three"></div>
+          <div class="four"></div>
+          <div class="five"></div>
+        </div>
+      </div>
+    </div>
+    <div class="shadow"></div>
+  </div>
+</div>
+</div>
+  <script>
+    
+$(document).ready(function () {
+  $(".container")
+    .mouseenter(function () {
+      $(".card").stop().animate(
+        {
+          top: "-90px"
+        },
+        "slow"
+      );
+    })
+    .mouseleave(function () {
+      $(".card").stop().animate(
+        {
+          top: 0
+        },
+        "slow"
+      );
+    });
+});
+
+var w = window.innerWidth,
+    h = window.innerHeight,
+    canvas = document.getElementById('test'),
+    ctx = canvas.getContext('2d'),
+    rate = 60,
+    arc = 100,
+    time,
+    count,
+    size = 7,
+    speed = 10,
+    parts = new Array,
+    colors = ['#d98cff','#9879ff','d98cff','#9879ff','#9879ff'];
+var mouse = { x: 0, y: 0 };
+
+canvas.setAttribute('width',w);
+canvas.setAttribute('height',h);
+
+function create() {
+  time = 0;
+  count = 0;
+
+  for(var i = 0; i < arc; i++) {
+    parts[i] = {
+      x: Math.ceil(Math.random() * w),
+      y: Math.ceil(Math.random() * h),
+      toX: Math.random() * 10 - 2,
+      toY: Math.random() * 4 - 2,
+      c: colors[Math.floor(Math.random()*colors.length)],
+      size: Math.random() * size
+    }
+  }
+}
+
+function particles() {
+  ctx.clearRect(0,0,w,h);
+   canvas.addEventListener('mousemove', MouseMove, false);
+  for(var i = 0; i < arc; i++) {
+    var li = parts[i];
+    var distanceFactor = DistanceBetween( mouse, parts[i] );
+    var distanceFactor = Math.max( Math.min( 15 - ( distanceFactor / 10 ), 10 ), 1 );
+    ctx.beginPath();
+    ctx.arc(li.x,li.y,li.size*distanceFactor,0,Math.PI*2,false);
+    ctx.fillStyle = li.c;
+    ctx.strokeStyle=li.c;
+    if(i%2==0)
+      ctx.stroke();
+    else
+      ctx.fill();
+    
+    li.x = li.x + li.toX * (time * 0.05);
+    li.y = li.y + li.toY * (time * 0.05);
+    
+    if(li.x > w){
+       li.x = 0; 
+    }
+    if(li.y > h) {
+       li.y = 0; 
+    }
+    if(li.x < 0) {
+       li.x = w; 
+    }
+    if(li.y < 0) {
+       li.y = h; 
+    }
+   
+     
+  }
+  if(time < speed) {
+    time++;
+  }
+  setTimeout(particles,1000/rate);
+}
+function MouseMove(e) {
+   mouse.x = e.layerX;
+   mouse.y = e.layerY;
+
+   //context.fillRect(e.layerX, e.layerY, 5, 5);
+   //Draw( e.layerX, e.layerY );
+}
+function DistanceBetween(p1,p2) {
+   var dx = p2.x-p1.x;
+   var dy = p2.y-p1.y;
+   return Math.sqrt(dx*dx + dy*dy);
+}
+create();
+particles();
+  </script>
+</body>
+</html>
