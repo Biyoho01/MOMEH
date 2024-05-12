@@ -336,7 +336,7 @@ div.polaroid {
 
 .polaroid.rotate_left {
   position: fixed; /* or absolute */
-  top: 200px; /* Adjust as needed */
+  top: 400px; /* Adjust as needed */
   right: 0px; /* Adjust as needed */
   animation: bounce_left 2s infinite;
 }
